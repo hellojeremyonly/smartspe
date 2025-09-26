@@ -1,0 +1,25 @@
+# OS / editor junk
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*.bak
+*~
+
+# IDE configs
+.vscode/
+.idea/
+
+# Composer / PHPUnit cache
+vendor/
+composer.lock
+phpunit.xml
+phpunit.xml.dist
+
+# Logs / cache
+*.log
+.cache/
+coverage/
+
+# Moodle local data
+moodledata/
