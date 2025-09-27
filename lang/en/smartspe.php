@@ -25,4 +25,14 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['modulename'] = 'Self and Peer Evaluation';
+$string['modulename_help'] = 'The SmartSPE activity module enables students to take part in structured self and peer evaluations within their courses.
+
+A form may be used
+
+* For students to evaluate their own contributions in group work
+* For students to provide feedback on their team members
+* For teachers to create and customise evaluation questions';
+$string['modulenameplural'] = 'Self and Peer Evaluations';
 $string['pluginname'] = 'SmartSPE';
+$string['smartspename'] = 'Name';
