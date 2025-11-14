@@ -67,9 +67,8 @@ class mod_smartspe_mod_form extends moodleform_mod {
 
         // Adding the rest of mod_smartspe settings, spreading all them into this fieldset
         // ... or adding more fieldsets ('header' elements) if needed for better logic.
-        $mform->addElement('static', 'label1', 'smartspesettings', get_string('smartspesettings', 'mod_smartspe'));
-        $mform->addElement('header', 'smartspefieldset', get_string('smartspefieldset', 'mod_smartspe'));
-
+        // $mform->addElement('static', 'label1', 'smartspesettings', get_string('smartspesettings', 'mod_smartspe'));
+        // $mform->addElement('header', 'smartspefieldset', get_string('smartspefieldset', 'mod_smartspe'));
         // Add standard elements.
         $this->standard_coursemodule_elements();
 

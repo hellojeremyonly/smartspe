@@ -31,6 +31,7 @@ $id = optional_param('id', 0, PARAM_INT);
 // Activity instance id.
 $s = optional_param('s', 0, PARAM_INT);
 
+// Retrieve the course and module information.
 if ($id) {
     $cm = get_coursemodule_from_id('smartspe', $id, 0, false, MUST_EXIST);
     $course = $DB->get_record('course', ['id' => $cm->course], '*', MUST_EXIST);
@@ -41,10 +42,13 @@ if ($id) {
     $cm = get_coursemodule_from_instance('smartspe', $moduleinstance->id, $course->id, false, MUST_EXIST);
 }
 
+// Ensure the user is logged in and has access to the module.
 require_login($course, true, $cm);
 
+// Get the module context.
 $modulecontext = context_module::instance($cm->id);
 
+// Log the module view event before any redirects.
 $event = \mod_smartspe\event\course_module_viewed::create([
     'objectid' => $moduleinstance->id,
     'context' => $modulecontext,
@@ -53,11 +57,21 @@ $event->add_record_snapshot('course', $course);
 $event->add_record_snapshot('smartspe', $moduleinstance);
 $event->trigger();
 
-$PAGE->set_url('/mod/smartspe/view.php', ['id' => $cm->id]);
-$PAGE->set_title(format_string($moduleinstance->name));
-$PAGE->set_heading(format_string($course->fullname));
-$PAGE->set_context($modulecontext);
+// Redirect based on user capabilities.
+// Teacher or manager view.
+if (has_capability('mod/smartspe:manage', $modulecontext) || has_capability('mod/smartspe:configure', $modulecontext)) {
+    redirect(new moodle_url('/mod/smartspe/config/configuration.php', ['id' => $cm->id]));
+}
 
-echo $OUTPUT->header();
+// Student view.
+require_capability('mod/smartspe:submit', $modulecontext);
+$published = $DB->get_record('smartspe_form', ['smartspeid' => $cm->instance, 'status' => 1]);
 
-echo $OUTPUT->footer();
+// If a published form exists, redirect to the student start page.
+if ($published) {
+    redirect(new moodle_url('/mod/smartspe/student/student_details.php', ['id' => $cm->id]));
+}
+
+// No published form found; inform the student and redirect to course page.
+\core\notification::add(get_string('nopublishedform', 'mod_smartspe'), \core\output\notification::NOTIFY_INFO);
+redirect(new moodle_url('/course/view.php', ['id' => $course->id]));

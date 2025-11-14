@@ -119,4 +119,28 @@ function smartspe_extend_navigation($smartspenode, $course, $module, $cm) {
  * @param navigation_node $smartspenode {@see navigation_node}
  */
 function smartspe_extend_settings_navigation($settingsnav, $smartspenode = null) {
+    global $PAGE, $COURSE;
+
+    if (!$smartspenode) {
+        return;
+    }
+
+    $context = $PAGE->context;
+    $courseid = $COURSE->id;
+
+    $context = context_module::instance($PAGE->cm->id);
+
+    if (!has_capability('mod/smartspe:manage', $context)) {
+        return;
+    }
+
+    $url = new moodle_url('/mod/smartspe/config/csv/upload.php', ['id' => $PAGE->cm->id]);
+    $smartspenode->add(
+        get_string('uploadcsv', 'mod_smartspe'),
+        $url,
+        navigation_node::TYPE_SETTING,
+        null,
+        'upload',
+        new pix_icon('i/upload', '')
+    );
 }

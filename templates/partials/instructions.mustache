@@ -1,0 +1,59 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template plugintype_pluginname/template_name
+
+    Template purpose and description.
+
+    Classes required for JS:
+    * none
+
+    Data attributes required for JS:
+    * none
+
+    Context variables required for this template:
+    * none
+
+    Example context (json):
+    {
+    }
+}}
+
+<div class="card mb-3 shadow rounded-lg">
+  <div class="card-header p-0" id="{{instructionsid}}-header">
+    <a class="btn btn-link text-body text-decoration-none w-100 p-3 d-flex align-items-center justify-content-between text-start fw-bold {{^expanded}}collapsed{{/expanded}}"
+       data-bs-toggle="collapse" data-toggle="collapse"
+       href="#{{instructionsid}}-collapse"
+       role="button"
+       aria-expanded="{{#expanded}}true{{/expanded}}{{^expanded}}false{{/expanded}}"
+       aria-controls="{{instructionsid}}-collapse">
+      <span class="d-flex align-items-center">
+        <span class="me-2 collapse-caret d-inline-block" aria-hidden="true">
+          {{#pix}}t/collapsed, core{{/pix}}
+        </span>
+        <h5 class="mb-0">{{#str}}instructions, mod_smartspe{{/str}}</h5>
+      </span>
+    </a>
+  </div>
+  <div id="{{instructionsid}}-collapse"
+       class="collapse {{#expanded}}show{{/expanded}}"
+       aria-labelledby="{{instructionsid}}-header">
+    <div class="card-body">
+      {{{instructionhtml}}}
+    </div>
+  </div>
+</div>

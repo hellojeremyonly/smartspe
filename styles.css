@@ -1,0 +1,32 @@
+/* config page */
+/* form_edit_page */
+.form-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  width: 100%;
+}
+
+.question-separator {
+  margin: 1rem 0;
+  border: 0;
+  border-top: 1px solid #ddd;
+}
+
+/* Student view page */
+/* Instruction accordion chevron */
+.collapse-caret {
+  transition: transform .2s ease;
+  transform: rotate(0deg);
+}
+
+.card-header a:not(.collapsed) .collapse-caret {
+  transform: rotate(90deg);
+}
+
+/* back_to_course */
+.back-to-course-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
